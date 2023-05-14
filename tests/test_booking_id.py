@@ -81,7 +81,6 @@ class TestBookingId:
         assert response_as_dict['totalprice'] > 100,  "Total price less than 100 "
 
     # проверка формата полей
-
     def test_check_response_format(self):
         data = 569
         url = f'https://restful-booker.herokuapp.com/booking/{data}'
