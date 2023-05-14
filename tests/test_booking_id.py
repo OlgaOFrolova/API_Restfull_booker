@@ -90,7 +90,6 @@ class TestBookingId:
         assert isinstance(response_as_dict['firstname'], str), f'field {response_as_dict["firstname"]} not of String format'
         assert isinstance(response_as_dict['lastname'], str), f'field {response_as_dict["lastname"]} not of String format'
         assert isinstance(response_as_dict['additionalneeds'], str), f'field {response_as_dict["additionalneeds"]} not of String format'
-
         assert isinstance(response_as_dict['totalprice'], int), f'field {response_as_dict["totalprice"]} not of Integer format'
         assert isinstance(response_as_dict['depositpaid'], bool), f'field {response_as_dict["depositpaid"]} not of Boolean format'
         assert isinstance(response_as_dict['bookingdates']["checkin"],  str), f'field {["bookingdates"]["checkin"]} not of data format'
