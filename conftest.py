@@ -57,6 +57,21 @@ def auth_admin_empty_login_pass():
     return {"username": username, "password": password}
 
 @pytest.fixture
+def id_valid_data():
+    id_valid_data = 123
+    return  id_valid_data
+
+@pytest.fixture
+def id_invalid_data():
+    id_invalid_data = "abc"
+    return  id_invalid_data
+
+@pytest.fixture
+def id_nonexistent_data():
+    id_nonexistent_data = 10000000000000000000000000000000000
+    return  id_nonexistent_data
+
+@pytest.fixture
 def create_firstname_valid_data():
     for firstname in " ", "John":
         firstname = firstname
@@ -254,6 +269,20 @@ def update_booking_new_valid_data():
     "additionalneeds": "Breakfast"
     }
     return (update_booking_new_valid_data)
+
+@pytest.fixture
+def update_booking_all_valid_data():
+    update_booking_all_valid_data = {
+    "firstname": "Petr",
+    "lastname": "Petrov",
+    "totalprice": 5000,
+    "depositpaid": False,
+    "bookingdates": {
+    "checkin": "2025-03-10",
+    "checkout": "2025-03-20"},
+    "additionalneeds": "Sea view"
+    }
+    return (update_booking_all_valid_data)
 
 @pytest.fixture
 def update_booking_valid_token():

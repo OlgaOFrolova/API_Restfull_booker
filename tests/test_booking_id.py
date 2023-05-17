@@ -2,52 +2,47 @@ import requests
 
 class TestBookingId:
     #ввод валидного ID
-    def test_check_valid_id(self):
-        data = 569
-        url = f'https://restful-booker.herokuapp.com/booking/{data}'
+    def test_check_valid_id(self, id_valid_data):
+        url = f'https://restful-booker.herokuapp.com/booking/{id_valid_data}'
         response = requests.get(url)
         assert response.status_code == 200, "Wrong status code for valid ID"
 
     # ввод ID = 0
     def test_check_zero_id(self):
-        data = 0
-        url = f'https://restful-booker.herokuapp.com/booking/{data}'
+        id_zerro_data = 0
+        url = f'https://restful-booker.herokuapp.com/booking/{id_zerro_data}'
         response = requests.get(url)
         assert response.status_code == 404, "ID = 0"
 
-    # ввод несуществующего ID(большое число)
-    def test_check_big_id(self):
-        data = 100000000000000000000000000000000000000000
-        url = f'https://restful-booker.herokuapp.com/booking/{data}'
+    # ввод несуществующего ID
+    def test_checknonexistent_data(self,id_nonexistent_data):
+        url = f'https://restful-booker.herokuapp.com/booking/{id_nonexistent_data}'
         response = requests.get(url)
-        assert response.status_code == 404, "ID greater than range "
+        assert response.status_code == 404, "non-existent ID "
 
-    # ввод несуществующего ID(буквы, спецсимволы, float и т.д)
-    def test_check_invalid_id(self):
-        for data in "abc", "##$@@",  5.5 , {"name": "name"}, ["name1", "name2"], True:
-            url = f'https://restful-booker.herokuapp.com/booking/{{"name": "name"}}'
-            response = requests.get(url)
-            assert response.status_code == 404, "Invalid ID"
+    # ввод невалидного ID
+    def test_check_invalid_id(self,id_invalid_data):
+        url = f'https://restful-booker.herokuapp.com/booking/{id_invalid_data}'
+        response = requests.get(url)
+        assert response.status_code == 404, "Invalid ID"
 
     # ввод пустого ID
     def test_check_empty_id(self):
-        data = " "
-        url = f'https://restful-booker.herokuapp.com/booking/{data}'
+        id_empty_data = " "
+        url = f'https://restful-booker.herokuapp.com/booking/{id_empty_data}'
         response = requests.get(url)
         assert response.status_code == 404, "Empty ID"
 
     # время ответа
-    def test_check_time(self):
-         data = 123
-         url = f'https://restful-booker.herokuapp.com/booking/{data}'
-         response = requests.get(url)
-         assert response.elapsed.total_seconds() <= 1, "Response time is more than 1s"
+    def test_check_time(self, id_valid_data):
+        url = f'https://restful-booker.herokuapp.com/booking/{id_valid_data}'
+        response = requests.get(url)
+        assert response.elapsed.total_seconds() <= 1, "Response time is more than 1s"
 
     # в ответе существуют определенные json-поля
-    def test_check_body_text(self):
+    def test_check_body_text(self, id_valid_data):
 
-        data = 569
-        url = f'https://restful-booker.herokuapp.com/booking/{data}'
+        url = f'https://restful-booker.herokuapp.com/booking/{id_valid_data}'
         response = requests.get(url)
         response2 = response.content.decode("utf-8")
         assert "firstname" in response2, "Not firstname in response "
@@ -58,9 +53,9 @@ class TestBookingId:
         assert "checkout" in response2, "Not checkout in response "
 
     #  ответ возвращает определенные значения
-    def test_check_response_data(self):
-        data = 568
-        url = f'https://restful-booker.herokuapp.com/booking/{data}'
+    def test_check_response_data(self, id_valid_data):
+
+        url = f'https://restful-booker.herokuapp.com/booking/{id_valid_data}'
         response = requests.get(url)
         response_as_dict = response.json()
 
@@ -73,17 +68,17 @@ class TestBookingId:
         assert response_as_dict['additionalneeds'] == "super bowls", "Not additional needs "
 
     # значение totalprice больше или меньше определенного числа
-    def test_check_compare_data(self):
-        data = 569
-        url = f'https://restful-booker.herokuapp.com/booking/{data}'
+    def test_check_compare_data(self,id_valid_data):
+
+        url = f'https://restful-booker.herokuapp.com/booking/{id_valid_data}'
         response = requests.get(url)
         response_as_dict = response.json()
         assert response_as_dict['totalprice'] > 100,  "Total price less than 100 "
 
     # проверка формата полей
-    def test_check_response_format(self):
-        data = 569
-        url = f'https://restful-booker.herokuapp.com/booking/{data}'
+    def test_check_response_format(self,id_valid_data):
+
+        url = f'https://restful-booker.herokuapp.com/booking/{id_valid_data}'
         response = requests.get(url)
         response_as_dict = response.json()
 
