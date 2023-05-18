@@ -52,4 +52,4 @@ class TestDeleteBooking:
         assert response3.status_code == expected_status_code, f"Unexpected status code! Expected {expected_status_code}. " \
                                                              f"Actual:{response3.status_code} Delete deleted ID "
 
-        #python -m pytest tests/test_delete_booking.py
+
