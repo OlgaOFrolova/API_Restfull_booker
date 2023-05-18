@@ -2,6 +2,7 @@ import requests
 
 url = "https://restful-booker.herokuapp.com/ping"
 
+
 class TestPing:
     def test_ping(self):
         response = requests.get(url)

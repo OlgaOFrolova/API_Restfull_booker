@@ -9,7 +9,6 @@ class TestBookingIds:
         response = requests.get(url)
         assert response.json(), "No booking result"
 
-
     # возврат списка пользователей по полю «firstname»
 
     # валидное имя, которое есть в базе
@@ -28,7 +27,7 @@ class TestBookingIds:
 
     # невалидное имя
     def test_check_invalid_firstname(self):
-        for firstname in  108, 5.5, {"name": "name"}, ["name1", "name2"], True:
+        for firstname in 108, 5.5, {"name": "name"}, ["name1", "name2"], True:
             url = f"https://restful-booker.herokuapp.com/booking?firstname={firstname}"
             response = requests.get(url)
             assert not response.json(), f"The firstname {firstname}is invalid, but it is in the results"
@@ -39,7 +38,6 @@ class TestBookingIds:
         url = f"https://restful-booker.herokuapp.com/booking?firstname={firstname}"
         response = requests.get(url)
         assert not response.json(), f"The firstname is empty, but it is in the results"
-
 
     # возврат списка пользователей по полю «lastname»
 
@@ -59,7 +57,7 @@ class TestBookingIds:
 
     # невалидная фамилия
     def test_check_invalid_lastname(self):
-        for lastname in  108, 5.5, {"name": "name"}, ["name1", "name2"], True:
+        for lastname in 108, 5.5, {"name": "name"}, ["name1", "name2"], True:
             url = f"https://restful-booker.herokuapp.com/booking?lastname={lastname}"
             response = requests.get(url)
             assert not response.json(), f"The lastname {lastname}is invalid, but it is in the results"
@@ -87,7 +85,7 @@ class TestBookingIds:
                 url = f"https://restful-booker.herokuapp.com/booking?checkin={checkin}"
                 response = requests.get(url)
             except requests.exceptions.JSONDecodeError:
-                assert not response.json(),"Checkin invalid date format"
+                assert not response.json(), "Checkin invalid date format"
 
     # дата заезда выходит за диапазон предусмотренных значений
     def test_check_out_of_range_checkin(self):
@@ -107,7 +105,6 @@ class TestBookingIds:
         except requests.exceptions.JSONDecodeError:
             assert not response.json(), "Checkin date is empty"
 
-
     # возврат списка пользователей по полю «checkout»
 
     # формат CCYY-MM-DD
@@ -126,7 +123,6 @@ class TestBookingIds:
             except requests.exceptions.JSONDecodeError:
                 assert not response.json(), "checkout invalid date format"
 
-
     # дата выезда выходит за диапазон предусмотренных значений
     def test_check_out_of_range_checkout(self):
         checkout = "3000-05-15"
@@ -144,5 +140,3 @@ class TestBookingIds:
             response = requests.get(url)
         except requests.exceptions.JSONDecodeError:
             assert not response.json(), "Checkout date is empty"
-
-
