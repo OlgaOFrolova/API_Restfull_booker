@@ -51,6 +51,7 @@ class TestUpdateBooking:
         assert response_firstname == expected_firstname, \
         f"Unexpected firstname! Expected {expected_firstname}. " f"Actual:{response_firstname}"
 
+    # отправка запроса с невалидным заголовком авторизации
     def test_update_booking_invalid_authorization_header(self, update_booking_valid_data, update_booking_new_valid_data,
                                         update_booking_invalid_authorization_header ):
 
@@ -195,6 +196,7 @@ class TestUpdateBooking:
 
         assert response.status_code == 405, "Update by invalid ID "
 
+   
     # обновление по несуществующему ID
     def test_update_booking_nonexistent_id(self, update_booking_new_valid_data, id_nonexistent_data,
                                         update_booking_valid_token):
