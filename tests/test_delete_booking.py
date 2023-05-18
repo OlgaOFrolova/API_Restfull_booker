@@ -40,7 +40,7 @@ class TestDeleteBooking:
 
     # удаление уже удаленного объекта
 
-    def test_delete_booking_valid_id(self, update_booking_valid_data, update_booking_valid_token):
+    def test_delete_booking_twice(self, update_booking_valid_data, update_booking_valid_token):
         response1 = requests.post(url, json=update_booking_valid_data)
         response_as_dict = response1.json()
 
@@ -51,3 +51,5 @@ class TestDeleteBooking:
         expected_status_code = 405
         assert response3.status_code == expected_status_code, f"Unexpected status code! Expected {expected_status_code}. " \
                                                              f"Actual:{response3.status_code} Delete deleted ID "
+
+        #python -m pytest tests/test_delete_booking.py
