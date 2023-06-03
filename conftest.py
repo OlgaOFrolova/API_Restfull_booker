@@ -1,69 +1,90 @@
 import pytest
 import requests
 
+@pytest.fixture
+def auth_url():
+    url = "https://restful-booker.herokuapp.com/auth"
+    return (url)
 
 @pytest.fixture
-def auth_positive():
-    username = "admin"
+def booking_url():
+    url = "https://restful-booker.herokuapp.com/booking/"
+    return (url)
+
+
+@pytest.fixture
+def auth_pass():
     password = "password123"
-    return {"username": username, "password": password}
-
-
-@pytest.fixture
-def auth_negative_register_login():
-    username = "ADMIN"
-    password = "password123"
-    return {"username": username, "password": password}
-
+    return (password)
 
 @pytest.fixture
-def auth_negative_register_pass():
+def auth_log():
     username = "admin"
-    password = "PASSWORD!@#"
-    return {"username": username, "password": password}
+    return (username)
 
 
 @pytest.fixture
-def auth_admin_wrong_pass():
-    username = "admin"
-    password = "987654321"
-    return {"username": username, "password": password}
-
+def negative_auth_admin_empty_login():
+    username = [ None, "   ", ""]
+    return (username)
+@pytest.fixture
+def negative_auth_admin_empty_pass():
+    password = [ None, "   ", ""]
+    return (password)
 
 @pytest.fixture
-def auth_admin_wrong_login():
-    username = "admin123"
-    password = "password123"
-    return {"username": username, "password": password}
-
-
-@pytest.fixture
-def auth_admin_wrong_login_pass():
-    username = "admin123"
-    password = "987654321"
-    return {"username": username, "password": password}
-
+def negative_swapped_login_pass():
+        username = "password123"
+        password = "admin"
+        return {"username": username, "password": password}
 
 @pytest.fixture
-def auth_admin_empty_login():
-    username = " "
-    password = "password123"
-    return {"username": username, "password": password}
-
-
-@pytest.fixture
-def auth_admin_empty_pass():
-    username = "admin"
-    password = " "
-    return {"username": username, "password": password}
-
+def negative_auth_admin_invalid_login():
+    username = ["ADMIN", "AdMiN", None, "   ", "", "ad min", "   admin", "admin   ", "ad-min", "ad_min", "admin.",\
+                "admin@", "фвьшт","約翰·史密斯", "존 스미스", "1", "12", 0, 123, 897, 123.87, -123, "!@#$%^&*", "☺☻♥♦♣♠•◘○", "password123"]
+    return (username)
 
 @pytest.fixture
-def auth_admin_empty_login_pass():
-    username = " "
-    password = " "
-    return {"username": username, "password": password}
+def negative_auth_admin_invalid_pass():
+    password = ["ADMIN", "AdMiN", None, "   ", "", "ad min", "   admin", "admin   ", "ad-min", "ad_min", "admin.",\
+                "admin@", "фвьшт", "約翰·史密斯", "존 스미스","1", "12", 0, 123, 897, 123.87, -123, "!@#$%^&*", "☺☻♥♦♣♠•◘○", "admin"]
+    return (password)
 
+@pytest.fixture
+def negative_firstmame():
+    firstname = [" JOHN", "john", "JoHn", "SmiTh", None, "   ", "", "Ann Mary", "   John", "John   ", "Smith   ", "Ann-Mary",
+                 "Smith-Wesson", "(John)", "Ощрт", "Иван", "約翰·史密斯", "존 스미스", "Jжон", "1", "12", 0, 123, 897, 123.87, -123,
+                 "!@#$%^&*", "☺☻♥♦♣♠•◘○", "password123"]
+    return (firstname)
+
+@pytest.fixture
+def negative_lastmame():
+    lastname = ["SMITH", "smith", "SmiTh", None, "   ", "", "Smith Wesson", "   Smith", "Smith   ",
+                "Smith-Wesson", "(Smith)", "Ыьшер", "фвьшт", "Сидоров", "約翰·史密斯", "존 스미스", "Sмит", "12", 0, 123,
+                897, 123.87, -12, "!@#$%^&*", "☺☻♥♦♣♠•◘○", "password123"]
+    return (lastname)
+
+@pytest.fixture
+def negative_checkin():
+    checkin = [0, 10000000000000000000000000000000000, None, "   ", "", "2023-30-12", "2023- 31- 05", "2023 - 31 - 05",
+              "0000-00-00", "0000-31-05", "2023-31-00", "2023-00-05", "2023-31-5", "02023-31-05", "9999-99-99",
+              "9999-31-05", "2023-31-99", "2023-99-05", "2023-31-02", "2023-15-12", "2023-35-35", "2020-29-02",
+              "2023-29-02", "2023-31-04" "-2023-12-12", "3000-12-12", "2023—05—23", "2023_05_23", "2023,05,23",
+              "2023 05 23", "30.5.2006", "30-5-2006", "30/5/2006", "30.05.2006", " 30/05/2006", "5/30/2006", 1684866999,
+              "Tue, 23 May 2023 18:36:38 GMT", "DATE(2023,05,23)", "23 мая 2023 года", "23 мая 2023г.",
+              "23 May 2023", " £/$/%/&"]
+    return(checkin)
+
+@pytest.fixture
+def negative_checkout():
+    checkout = [0, 10000000000000000000000000000000000, None, "   ", "", "2023-30-12", "2023- 31- 05", "2023 - 31 - 05",
+              "0000-00-00", "0000-31-05", "2023-31-00", "2023-00-05", "2023-31-5", "02023-31-05", "9999-99-99",
+              "9999-31-05", "2023-31-99", "2023-99-05", "2023-31-02", "2023-15-12", "2023-35-35", "2020-29-02",
+              "2023-29-02", "2023-31-04" "-2023-12-12", "3000-12-12", "2023—05—23", "2023_05_23", "2023,05,23",
+              "2023 05 23", "30.5.2006", "30-5-2006", "30/5/2006", "30.05.2006", " 30/05/2006", "5/30/2006", 1684866999,
+              "Tue, 23 May 2023 18:36:38 GMT", "DATE(2023,05,23)", "23 мая 2023 года", "23 мая 2023г.",
+              "23 May 2023", " £/$/%/&"]
+    return(checkout)
 
 @pytest.fixture
 def id_valid_data():
@@ -76,7 +97,6 @@ def id_invalid_data():
     id_invalid_data = "abc"
     return id_invalid_data
 
-
 @pytest.fixture
 def id_nonexistent_data():
     id_nonexistent_data = 10000000000000000000000000000000000
@@ -85,132 +105,36 @@ def id_nonexistent_data():
 
 @pytest.fixture
 def create_firstname_valid_data():
-    for firstname in " ", "John":
-        firstname = firstname
-        lastname = "Smith"
-        totalprice = 1000
-        depositpaid = True
-        bookingdates = {"checkin": "2023-03-10", "checkout": "2023-03-20"}
-        additionalneeds = "Breakfast"
+    firstname = [ " ", "John", " JOHN", "john", "JoHn", "SmiTh",  "   ", "", "Ann Mary", "   John", \
+            "John   ", "Smith   ", "Ann-Mary", "Smith-Wesson", "(John)", "Ощрт", "Иван", "約翰·史密斯", "존 스미스", "Jжон", \
+            "1", "12", "!@#$%^&*", "☺☻♥♦♣♠•◘○", "password123"]
+    return (firstname)
 
-        return {"firstname": firstname, "lastname": lastname, "totalprice": totalprice, "depositpaid": depositpaid,
-                "bookingdates": bookingdates, "additionalneeds": additionalneeds}
-
+@pytest.fixture
+def create_firstname_invalid_data():
+    firstname = [ None,  123, 897, 123.87, -123]
+    return (firstname)
 
 @pytest.fixture
 def create_lastname_valid_data():
-    for lastname in " ", "Smith":
-        firstname = "John"
-        lastname = lastname
-        totalprice = 1000
-        depositpaid = True
-        bookingdates = {"checkin": "2023-03-10", "checkout": "2023-03-20"}
-        additionalneeds = "Breakfast"
+    lastname = [" ", "John", " JOHN", "john", "JoHn", "SmiTh",  "   ", "", "Ann Mary", "   John", \
+            "John   ", "Smith   ", "Ann-Mary", "Smith-Wesson", "(John)", "Ощрт", "Иван", "約翰·史密斯", "존 스미스", "Jжон", \
+            "1", "12", "!@#$%^&*", "☺☻♥♦♣♠•◘○", "password123"]
+    return (lastname)
 
-        return {"firstname": firstname, "lastname": lastname, "totalprice": totalprice, "depositpaid": depositpaid,
-                "bookingdates": bookingdates, "additionalneeds": additionalneeds}
-
+@pytest.fixture
+def create_lastname_invalid_data():
+    lastname = [ None,  123, 897, 123.87, -123]
+    return (lastname)
 
 @pytest.fixture
 def create_totalprice_valid_data():
-    for totalprice in " ", "Price", 5, 5.5, {'name': 'name'}, ['name1', 'name2'], True:
-        firstname = "John"
-        lastname = "Smith"
-        totalprice = totalprice
-        depositpaid = True
-        bookingdates = {"checkin": "2023-03-10", "checkout": "2023-03-20"}
-        additionalneeds = "Breakfast"
-
-        return {"firstname": firstname, "lastname": lastname, "totalprice": totalprice, "depositpaid": depositpaid,
-                "bookingdates": bookingdates, "additionalneeds": additionalneeds}
-
-
+    totalprice = [0, "   ", ""," %))))", 1000, 100.50, 100, 50, 100/50,
+                  100 - 50, 10050, "пять тысяч рублей", "пять тысяч", "5 тысяч", "5000", "5000 pуб",
+                  "five thousand dollars", "five thousand", " $ 5  thousand", " 5  thousand  $", " £/$/%/&", "оплачено"]
+    return (totalprice)
 @pytest.fixture
-def create_depositpaid_valid_data():
-    for depositpaid in " ", "Price", 5, 5.5, {'name': 'name'}, ['name1', 'name2'], True:
-        firstname = "John"
-        lastname = "Smith"
-        totalprice = 100
-        depositpaid = depositpaid
-        bookingdates = {"checkin": "2023-03-10", "checkout": "2023-03-20"}
-        additionalneeds = "Breakfast"
-
-        return {"firstname": firstname, "lastname": lastname, "totalprice": totalprice, "depositpaid": depositpaid,
-                "bookingdates": bookingdates, "additionalneeds": additionalneeds}
-
-
-@pytest.fixture
-def create_checkin_valid_data():
-    for checkin in " ", "Price", 5, 5.5, {'name': 'name'}, ['name1', 'name2'], True:
-        firstname = "John"
-        lastname = "Smith"
-        totalprice = 100
-        depositpaid = True
-        bookingdates = {"checkin": checkin, "checkout": "2023-03-20"}
-        additionalneeds = "Breakfast"
-
-        return {"firstname": firstname, "lastname": lastname, "totalprice": totalprice, "depositpaid": depositpaid,
-                "bookingdates": bookingdates, "additionalneeds": additionalneeds}
-
-
-@pytest.fixture
-def create_checkout_valid_data():
-    for checkout in " ", "Price", 5, 5.5, {'name': 'name'}, ['name1', 'name2'], True:
-        firstname = "John"
-        lastname = "Smith"
-        totalprice = 100
-        depositpaid = True
-        bookingdates = {"checkin": "2023-03-10", "checkout": checkout}
-        additionalneeds = "Breakfast"
-
-        return {"firstname": firstname, "lastname": lastname, "totalprice": totalprice, "depositpaid": depositpaid,
-                "bookingdates": bookingdates, "additionalneeds": additionalneeds}
-
-
-@pytest.fixture
-def create_additionalneeds_valid_data():
-    for additionalneeds in " ", "Price", 5, 5.5, {'name': 'name'}, ['name1', 'name2'], True:
-        firstname = "John"
-        lastname = "Smith"
-        totalprice = 100
-        depositpaid = True
-        bookingdates = {"checkin": "2023-03-10", "checkout": "2023-03-20"}
-        additionalneeds = additionalneeds
-
-        return {"firstname": firstname, "lastname": lastname, "totalprice": totalprice, "depositpaid": depositpaid,
-                "bookingdates": bookingdates, "additionalneeds": additionalneeds}
-
-
-@pytest.fixture
-def create_booking_invalid_firstname_data():
-    for firstname in None, 5, 5.5, {'name': 'name'}, ['name1', 'name2'], True:
-        firstname = firstname
-        lastname = "Smith"
-        totalprice = 1000
-        depositpaid = True
-        bookingdates = {"checkin": "2023-03-10", "checkout": "2023-03-20"}
-        additionalneeds = "Breakfast"
-
-        return {"firstname": firstname, "lastname": lastname, "totalprice": totalprice, "depositpaid": depositpaid,
-                "bookingdates": bookingdates, "additionalneeds": additionalneeds}
-
-
-@pytest.fixture
-def create_booking_invalid_lastname_data():
-    for lastname in None, 5, 5.5, {'name': 'name'}, ['name1', 'name2'], True:
-        firstname = "John"
-        lastname = lastname
-        totalprice = 1000
-        depositpaid = True
-        bookingdates = {"checkin": "2023-03-10", "checkout": "2023-03-20"}
-        additionalneeds = "Breakfast"
-
-        return {"firstname": firstname, "lastname": lastname, "totalprice": totalprice, "depositpaid": depositpaid,
-                "bookingdates": bookingdates, "additionalneeds": additionalneeds}
-
-
-@pytest.fixture
-def create_booking_invalid_totalprice_data():
+def create_totalprice_invalid_data():
     firstname = "John"
     lastname = "Smith"
     totalprice = None
@@ -221,9 +145,20 @@ def create_booking_invalid_totalprice_data():
     return {"firstname": firstname, "lastname": lastname, "totalprice": totalprice, "depositpaid": depositpaid,
             "bookingdates": bookingdates, "additionalneeds": additionalneeds}
 
+@pytest.fixture
+def create_depositpaid_valid_data():
+        firstname = "John"
+        lastname = "Smith"
+        totalprice = 100
+        depositpaid = True
+        bookingdates = {"checkin": "2023-03-10", "checkout": "2023-03-20"}
+        additionalneeds = "Breakfast"
+
+        return {"firstname": firstname, "lastname": lastname, "totalprice": totalprice, "depositpaid": depositpaid,
+                "bookingdates": bookingdates, "additionalneeds": additionalneeds}
 
 @pytest.fixture
-def create_booking_invalid_depositpaid_data():
+def create_depositpaid_invalid_data():
     firstname = "John"
     lastname = "Smith"
     totalprice = 100
@@ -234,31 +169,57 @@ def create_booking_invalid_depositpaid_data():
     return {"firstname": firstname, "lastname": lastname, "totalprice": totalprice, "depositpaid": depositpaid,
             "bookingdates": bookingdates, "additionalneeds": additionalneeds}
 
+@pytest.fixture
+def create_checkin_valid_data():
+    checkin = ["3000-12-12",  "2023,05,23", "2023 05 23", "5/30/2006", 1684866999,  "23 May 2023", "Tue, 23 May 2023 18:36:38 GMT",]
+    return(checkin)
 
 @pytest.fixture
-def create_booking_invalid_checkin_data():
-    firstname = "John"
-    lastname = "Smith"
-    totalprice = 100
-    depositpaid = None
-    bookingdates = {"checkin": None, "checkout": "2023-03-20"}
-    additionalneeds = "Breakfast"
+def create_checkin_invalid_data():
+    checkin = [10000000000000000000000000000000000, "   ", "","2023-30-12", "2023- 31- 05", "2023 - 31 - 05",
+               "0000-00-00", "0000-31-05", "2023-31-00", "2023-00-05", "2023-31-5", "02023-31-05", "9999-99-99",
+               "9999-31-05", "2023-31-99", "2023-99-05","2023-31-02", "2023-15-12","2023-35-35", "2020-29-02",
+               "2023-29-02", "2023-31-04" "-2023-12-12",  "2023—05—23", "2023_05_23",  "30.5.2006", "30-5-2006",
+               "30/5/2006", "30.05.2006", " 30/05/2006",  "DATE(2023,05,23)",
+               "23 мая 2023 года", "23 мая 2023г.", " £/$/%/&"]
+    return(checkin)
 
-    return {"firstname": firstname, "lastname": lastname, "totalprice": totalprice, "depositpaid": depositpaid,
-            "bookingdates": bookingdates, "additionalneeds": additionalneeds}
+@pytest.fixture
+def create_checkin_none_data():
+    checkin = [None]
+    return (checkin)
+
+@pytest.fixture
+def create_checkout_valid_data():
+    checkout = ["3000-12-12",  "2023,05,23", "2023 05 23", "5/30/2006", 1684866999,  "23 May 2023", "Tue, 23 May 2023 18:36:38 GMT",]
+    return(checkout)
+
+@pytest.fixture
+def create_checkout_invalid_data():
+    checkout = [10000000000000000000000000000000000, "   ", "","2023-30-12", "2023- 31- 05", "2023 - 31 - 05",
+               "0000-00-00", "0000-31-05", "2023-31-00", "2023-00-05", "2023-31-5", "02023-31-05", "9999-99-99",
+               "9999-31-05", "2023-31-99", "2023-99-05","2023-31-02", "2023-15-12","2023-35-35", "2020-29-02",
+               "2023-29-02", "2023-31-04" "-2023-12-12",  "2023—05—23", "2023_05_23",  "30.5.2006", "30-5-2006",
+               "30/5/2006", "30.05.2006", " 30/05/2006",  "DATE(2023,05,23)",
+               "23 мая 2023 года", "23 мая 2023г.", " £/$/%/&"]
+    return(checkout)
+
+@pytest.fixture
+def create_checkout_none_data():
+    checkout = [None]
+    return (checkout)
+
 
 
 @pytest.fixture
-def create_booking_invalid_checkout_data():
-    firstname = "John"
-    lastname = "Smith"
-    totalprice = 100
-    depositpaid = None
-    bookingdates = {"checkin": "2023-03-10", "checkout": None}
-    additionalneeds = "Breakfast"
+def create_additionalneeds_valid_data():
+    additionalneeds = ["breakfast", None, "   ", "","BREAKFAST", "BrEaKfAsT", "break fast", "   breakfast"," breakfast   ",
+                       " break-fast","( breakfast)", "икуфлафые", "завтрак","1", "12", 0, 123, 897, 123.87, -123,
+                       "!@#$%^&*", "☺☻♥♦♣♠•◘○","約翰·史密斯", "존 스미스"]
 
-    return {"firstname": firstname, "lastname": lastname, "totalprice": totalprice, "depositpaid": depositpaid,
-            "bookingdates": bookingdates, "additionalneeds": additionalneeds}
+    return (additionalneeds)
+
+
 
 
 @pytest.fixture
@@ -437,3 +398,4 @@ def partial_update_booking_invalid_additionalneeds():
                                                 {"firstname": {'name': 'name'}}, {"firstname": ['name1', 'name2']},
                                                 {"firstname": True}]
     return (partial_update_booking_invalid_additionalneeds)
+

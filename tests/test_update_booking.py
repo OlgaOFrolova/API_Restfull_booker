@@ -113,71 +113,71 @@ class TestUpdateBooking:
     # отправка запросов с невалидными данными
     #  невалидное поле firstname
     def test_update_booking_invalid_firstname_data(self, update_booking_valid_data,
-                                                   create_booking_invalid_firstname_data,
+                                                   create_firstname_invalid_data,
                                                    update_booking_valid_token):
         response1 = requests.post(url, json=update_booking_valid_data)
         response_as_dict = response1.json()
         response2 = requests.put(f"https://restful-booker.herokuapp.com/booking/{response_as_dict['bookingid']}",
-                                 json=create_booking_invalid_firstname_data,
+                                 json=create_firstname_invalid_data,
                                  headers={'Cookie': update_booking_valid_token})
 
         assert response2.status_code == 400, f"Wrong response code. Expected 400, actual {response2.status_code} "
 
     #  невалидное поле lastname
-    def test_update_booking_invalid_lastname_data(self, update_booking_valid_data, create_booking_invalid_lastname_data,
+    def test_update_booking_invalid_lastname_data(self, update_booking_valid_data, create_lastname_invalid_data,
                                                   update_booking_valid_token):
         response1 = requests.post(url, json=update_booking_valid_data)
         response_as_dict = response1.json()
         response2 = requests.put(f"https://restful-booker.herokuapp.com/booking/{response_as_dict['bookingid']}",
-                                 json=create_booking_invalid_lastname_data,
+                                 json=create_lastname_invalid_data,
                                  headers={'Cookie': update_booking_valid_token})
 
         assert response2.status_code == 400, f"Wrong response code. Expected 400, actual {response2.status_code} "
 
     #  невалидное поле totalprice
     def test_update_booking_invalid_totalprice_data(self, update_booking_valid_data,
-                                                    create_booking_invalid_totalprice_data,
+                                                    create_totalprice_invalid_data,
                                                     update_booking_valid_token):
         response1 = requests.post(url, json=update_booking_valid_data)
         response_as_dict = response1.json()
         response2 = requests.put(f"https://restful-booker.herokuapp.com/booking/{response_as_dict['bookingid']}",
-                                 json=create_booking_invalid_totalprice_data,
+                                 json=create_totalprice_invalid_data,
                                  headers={'Cookie': update_booking_valid_token})
 
         assert response2.status_code == 400, f"Wrong response code. Expected 400, actual {response2.status_code} "
 
     #  невалидное поле depositpaid
     def test_update_booking_invalid_depositpaid_data(self, update_booking_valid_data,
-                                                     create_booking_invalid_depositpaid_data,
+                                                     create_depositpaid_invalid_data,
                                                      update_booking_valid_token):
         response1 = requests.post(url, json=update_booking_valid_data)
         response_as_dict = response1.json()
         response2 = requests.put(f"https://restful-booker.herokuapp.com/booking/{response_as_dict['bookingid']}",
-                                 json=create_booking_invalid_depositpaid_data,
+                                 json=create_depositpaid_invalid_data,
                                  headers={'Cookie': update_booking_valid_token})
 
         assert response2.status_code == 400, f"Wrong response code. Expected 400, actual {response2.status_code} "
 
     #  невалидное поле checkin
     def test_update_booking_invalid_checkin_data(self, update_booking_valid_data,
-                                                 create_booking_invalid_checkin_data,
+                                                 create_checkin_invalid_data,
                                                  update_booking_valid_token):
         response1 = requests.post(url, json=update_booking_valid_data)
         response_as_dict = response1.json()
         response2 = requests.put(f"https://restful-booker.herokuapp.com/booking/{response_as_dict['bookingid']}",
-                                 json=create_booking_invalid_checkin_data,
+                                 json=create_checkin_invalid_data,
                                  headers={'Cookie': update_booking_valid_token})
 
         assert response2.status_code == 400, f"Wrong response code. Expected 400, actual {response2.status_code} "
 
     #  невалидное поле checkout
     def test_update_booking_invalid_checkout_data(self, update_booking_valid_data,
-                                                  create_booking_invalid_checkout_data,
+                                                  create_checkout_invalid_data,
                                                   update_booking_valid_token):
         response1 = requests.post(url, json=update_booking_valid_data)
         response_as_dict = response1.json()
         response2 = requests.put(f"https://restful-booker.herokuapp.com/booking/{response_as_dict['bookingid']}",
-                                 json=create_booking_invalid_checkout_data,
+                                 json=create_checkout_invalid_data,
                                  headers={'Cookie': update_booking_valid_token})
 
         assert response2.status_code == 400, f"Wrong response code. Expected 400, actual {response2.status_code} "
