@@ -84,7 +84,3 @@ class TestBookingIds:
             url = f"https://restful-booker.herokuapp.com/booking?firstname={checkout}"
             response = requests.get(url)
             assert not response.json(), f"Checkin {checkout}is invalid, but it is in the results"
-
-
-
-
